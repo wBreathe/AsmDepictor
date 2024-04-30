@@ -43,7 +43,7 @@ class Translator(nn.Module):
         if src_seq.type() != 'torch.cuda.LongTensor':
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             src_mask = torch.tensor([[[True]]], dtype=torch.bool).to(device)
-            src_seq = torch.tensor([[2]], dtype=torch.int32).to(device)
+            src_seq = torch.tensor(src_seq, dtype=torch.int32).to(device)
 
         enc_output, *_ = self.model.module.encoder(src_seq, src_mask)
         dec_output = self._model_decode(self.init_seq, enc_output, src_mask)
